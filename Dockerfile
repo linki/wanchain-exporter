@@ -3,7 +3,7 @@ FROM golang:1.11 as builder
 WORKDIR /ethereum_exporter
 COPY . .
 
-RUN CGO_ENABLED=0 go build -ldflags '-s -w' github.com/31z4/ethereum-prometheus-exporter/cmd/ethereum_exporter
+RUN CGO_ENABLED=0 go build -ldflags '-s -w' github.com/linki/wanchain-exporter/cmd/ethereum_exporter
 
 FROM scratch
 

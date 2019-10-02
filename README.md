@@ -1,28 +1,24 @@
-# Ethereum Prometheus Exporter
+# Wanchain Prometheus Exporter
 
-[![CircleCI](https://circleci.com/gh/31z4/ethereum-prometheus-exporter.svg?style=shield&circle-token=3c4469ca8c3360117a7b843958e5537fa2530682)](https://circleci.com/gh/31z4/ethereum-prometheus-exporter)
-[![codecov](https://codecov.io/gh/31z4/ethereum-prometheus-exporter/branch/master/graph/badge.svg)](https://codecov.io/gh/31z4/ethereum-prometheus-exporter)
-[![Go Report Card](https://goreportcard.com/badge/github.com/31z4/ethereum-prometheus-exporter)](https://goreportcard.com/report/github.com/31z4/ethereum-prometheus-exporter)
-
-This service exports various metrics from Ethereum clients for consumption by [Prometheus](https://prometheus.io). It uses [JSON-RPC](https://github.com/ethereum/wiki/wiki/JSON-RPC) interface to collect the metrics. Any JSON-RPC 2.0 enabled client should be supported. Although, it was only tested with [Parity](https://wiki.parity.io/Parity-Ethereum).
+This service exports various metrics from Wanchain clients for consumption by [Prometheus](https://prometheus.io). It uses [JSON-RPC](https://iwan.wanchain.org/static/apidoc/docs.html) interface to collect the metrics. Any JSON-RPC 2.0 enabled client should be supported.
 
 ## Usage
 
-You can deploy this exporter using the [31z4/ethereum-prometheus-exporter](https://hub.docker.com/r/31z4/ethereum-prometheus-exporter/) Docker image.
+You can deploy this exporter using the [linki/wanchain-exporter](https://hub.docker.com/r/linki/wanchain-exporter/) Docker image.
 
-    docker run -d -p 9368:9368 --name ethereum-exporter 31z4/ethereum-prometheus-exporter -url http://ethereum:8545
+    docker run -d -p 9368:9368 --name wanchain-exporter linki/wanchain-exporter -url http://wanchain:8545
 
-Keep in mind that your container needs to be able to communicate with the Ethereum client using the specified `url` (default is `http://localhost:8545`).
+Keep in mind that your container needs to be able to communicate with the Wanchain client using the specified `url` (default is `http://localhost:8545`).
 
 By default the exporter serves on `:9368` at `/metrics`. The listen address can be changed by specifying the `-addr` flag.
 
 Here is an example [`scrape_config`](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#scrape_config) for Prometheus.
 
 ```yaml
-- job_name: ethereum
+- job_name: wanchain
   static_configs:
   - targets:
-    - ethereum-exporter:9368
+    - wanchain-exporter:9368
 ```
 
 ## Exported Metrics

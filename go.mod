@@ -1,4 +1,4 @@
-module github.com/31z4/ethereum-prometheus-exporter
+module github.com/linki/wanchain-exporter
 
 require (
 	github.com/beorn7/perks v0.0.0-20180321164747-3a771d992973 // indirect
@@ -19,3 +19,5 @@ require (
 	gopkg.in/check.v1 v1.0.0-20180628173108-788fd7840127 // indirect
 	gopkg.in/natefinch/npipe.v2 v2.0.0-20160621034901-c1b8fa8bdcce // indirect
 )
+
+go 1.13
