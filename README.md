@@ -4,9 +4,9 @@ This service exports various metrics from Wanchain clients for consumption by [P
 
 ## Usage
 
-You can deploy this exporter using the [linki/wanchain-exporter](https://hub.docker.com/r/linki/wanchain-exporter/) Docker image.
+You can deploy this exporter using the [quay.io/linki/wanchain-exporter](https://quay.io/repository/linki/wanchain-exporter/) Docker image.
 
-    docker run -d -p 9368:9368 --name wanchain-exporter linki/wanchain-exporter -url http://wanchain:8545
+    docker run -d -p 9368:9368 --name wanchain-exporter quay.io/linki/wanchain-exporter -url http://wanchain:8545
 
 Keep in mind that your container needs to be able to communicate with the Wanchain client using the specified `url` (default is `http://localhost:8545`).
 
