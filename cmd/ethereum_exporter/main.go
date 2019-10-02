@@ -51,6 +51,8 @@ func main() {
 		collector.NewEthPendingBlockTransactions(rpc),
 		collector.NewEthHashrate(rpc),
 		collector.NewEthSyncing(rpc),
+		collector.NewPosGetEpochID(rpc),
+		collector.NewPosGetSlotID(rpc),
 	)
 
 	handler := promhttp.HandlerFor(registry, promhttp.HandlerOpts{
