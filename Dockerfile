@@ -1,16 +1,21 @@
-FROM golang:1.11 as builder
+# builder image
+FROM golang:1.13-alpine3.10 as builder
 
-WORKDIR /ethereum_exporter
+ENV CGO_ENABLED 0
+ENV GO111MODULE on
+RUN apk --no-cache add git
+WORKDIR /go/src/github.com/linki/wanchain-cli
 COPY . .
+RUN go test -v ./...
+RUN go build -o /bin/wanchain-exporter -v \
+  -ldflags "-X github.com/linki/wanchain-exporter/cmd.version=$(git describe --tags --always --dirty) -w -s" \
+  ./cmd/ethereum_exporter
 
-RUN CGO_ENABLED=0 go build -ldflags '-s -w' github.com/linki/wanchain-exporter/cmd/ethereum_exporter
+# final image
+FROM alpine:3.10
 
-FROM scratch
+RUN apk --no-cache add ca-certificates dumb-init
+COPY --from=builder /bin/wanchain-exporter /bin/wanchain-exporter
 
-ENTRYPOINT ["/ethereum_exporter"]
-USER nobody
-EXPOSE 9368
-
-COPY --from=builder /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/ca-certificates.crt
-COPY --from=builder /etc/passwd /etc/passwd
-COPY --from=builder /ethereum_exporter/ethereum_exporter /ethereum_exporter
+USER 65534
+ENTRYPOINT ["dumb-init", "--", "/bin/wanchain-exporter"]
