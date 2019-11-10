@@ -53,6 +53,7 @@ func main() {
 		collector.NewEthSyncing(rpc),
 		collector.NewPosGetEpochID(rpc),
 		collector.NewPosGetSlotID(rpc),
+		collector.NewEthGetBalance(rpc),
 	)
 
 	handler := promhttp.HandlerFor(registry, promhttp.HandlerOpts{
