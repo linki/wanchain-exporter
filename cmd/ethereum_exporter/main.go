@@ -54,6 +54,8 @@ func main() {
 		collector.NewPosGetEpochID(rpc),
 		collector.NewPosGetSlotID(rpc),
 		collector.NewEthGetBalance(rpc),
+		collector.NewEthLastBlock(rpc),
+		collector.NewPosGetStakerInfo(rpc, *url),
 	)
 
 	handler := promhttp.HandlerFor(registry, promhttp.HandlerOpts{
